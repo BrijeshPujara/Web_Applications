@@ -16,10 +16,11 @@ class Application < Sinatra::Base
     name.split(",").join(", ")
   end
   
-  post '/names' do
+  post '/sort-names' do
     name = params[:name]
     name.split(",").sort.join(", ")
   end
+  # end
   #   name = params[:name]
   #   cohort_name = params[:cohort_name]
   #   #  http://localhost:9292/posts?name=brijesh&cohort_name=July

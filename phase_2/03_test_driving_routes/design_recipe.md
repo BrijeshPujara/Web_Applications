@@ -98,6 +98,15 @@ describe Application do
       expect(response.status).to eq(404)
       expect(response.body).to eq("Sorry not found..")
     end
+
+    context "POST /sort-names" do
+      it 'returns 200 ok with content' do
+        res = post('/sort-names?name=Joe,Alice,Zoe,Julia,Kieran')
+
+        expect(res.status).to eq(200)
+        expect(res.body).to eq("Alice, Joe, Julia, Kieran, Zoe")
+      end
+    end
   end
 end
 ```
