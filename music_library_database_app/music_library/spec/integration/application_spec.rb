@@ -11,23 +11,23 @@ describe Application do
   let(:app) { Application.new }
 
   context "GET /albums" do
-    it 'returns 200 OK' do
-      # Assuming the post with id 1 exists.
-      response = get('/albums')
-      expected_response = "Surfer Rosa, Waterloo, Super Trouper, Bossanova, Lover, Folklore, I Put a Spell on You, Baltimore, Here Comes the Sun, Fodder on My Wings, Ring Ring"
+    it "returns all albums in body" do 
+      res = get('/albums')
 
-      expect(response.status).to eq(200)
-      expect(response.body).to eq(expected_response)
+      expect(res.status).to eq(200)
+      expect(res.body).to include('<a href="/albums/2">Surfer Rosa</a>')    
+      expect(res.body).to include('<a href="/albums/3">Waterloo</a>')    
+      expect(res.body).to include('<a href="/albums/4">Super Trouper</a>')    
     end
-  end
-
+  
     it 'returns 404 Not Found' do
       response = get('/albu?title=marvel')
 
       expect(response.status).to eq(404)
       # expect(response.body).to eq(expected_response)
     end
-
+  end
+  
   context "POST/albums - Creates new album" do
     it 'returns 200 ok and creates new album' do
       res = post('/albums',
@@ -81,19 +81,4 @@ describe Application do
     end
   end
 
-    context "a context" do
-      it "returns all albums in body" do 
-        res = get('/albums/')
-  
-        expect(res.status).to eq(200)
-        expect(res.body).to include('<a href="/albums/2">Surfer Rosa</a>')    
-        expect(res.body).to include('<a href="/albums/3">Waterloo</a>')    
-        expect(res.body).to include('<a href="/albums/4">Super Trouper</a>')    
-      end
-    end
-    
-
-      
-  
-  
 end

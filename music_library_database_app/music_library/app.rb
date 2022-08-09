@@ -15,15 +15,15 @@ class Application < Sinatra::Base
   end
 
   # GET albums
-  get '/albums' do 
-    repo = AlbumRepository.new
-    albums = repo.all
+  # get '/albums' do 
+  #   repo = AlbumRepository.new
+  #   albums = repo.all
 
-    res = albums.map do |album|
-      album.title
-    end.join(', ')
+  #   res = albums.map do |album|
+  #     album.title
+  #   end.join(', ')
 
-  end
+  # end
 
   # POST - Create a new album
   post '/albums' do 
@@ -65,7 +65,7 @@ class Application < Sinatra::Base
     return erb(:index)
   end
 
-  get '/albums/' do
+  get '/albums' do
     repo = AlbumRepository.new
     @albums = repo.all
 
