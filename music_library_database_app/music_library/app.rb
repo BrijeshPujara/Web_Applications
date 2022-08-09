@@ -69,10 +69,6 @@ class Application < Sinatra::Base
     repo = AlbumRepository.new
     @albums = repo.all
 
-    @title = @albums.map do |album|
-      album.title
-    end
-
     return erb(:albums)
   end
 

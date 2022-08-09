@@ -83,10 +83,12 @@ describe Application do
 
     context "a context" do
       it "returns all albums in body" do 
-        res = get('/albums')
+        res = get('/albums/')
   
         expect(res.status).to eq(200)
-        expect(res.body).to include("Surfer Rosa, Waterloo, Super Trouper, Bossanova, Lover, Folklore, I Put a Spell on You, Baltimore, Here Comes the Sun, Fodder on My Wings, Ring Ring, Take Care")    
+        expect(res.body).to include('<a href="/albums/2">Surfer Rosa</a>')    
+        expect(res.body).to include('<a href="/albums/3">Waterloo</a>')    
+        expect(res.body).to include('<a href="/albums/4">Super Trouper</a>')    
       end
     end
     
