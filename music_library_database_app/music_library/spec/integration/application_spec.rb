@@ -11,7 +11,7 @@ describe Application do
   let(:app) { Application.new }
 
   context "GET /albums" do
-    it "returns all albums in body" do 
+    it "returns all albums in body linked to corresponding info" do 
       res = get('/albums')
 
       expect(res.status).to eq(200)
@@ -27,7 +27,7 @@ describe Application do
       # expect(response.body).to eq(expected_response)
     end
   end
-  
+
   context "POST/albums - Creates new album" do
     it 'returns 200 ok and creates new album' do
       res = post('/albums',
@@ -42,17 +42,6 @@ describe Application do
     end
   end
 
-    context "GET /artists" do
-      it 'returns 200 OK' do
-        # Assuming the post with id 1 exists.
-        response = get('/artists')
-        expected_response = "Pixies, ABBA, Taylor Swift, Nina Simone, Kiasmos"
-  
-        expect(response.status).to eq(200)
-        expect(response.body).to eq(expected_response)
-      end
-    end
-
     context "POST/artists - Creates new artist" do
       it 'returns 200 ok and creates new artist' do
         res = post('/artists',
@@ -63,10 +52,9 @@ describe Application do
     
            
         res = get('/artists')
-        expected_response = "Pixies, ABBA, Taylor Swift, Nina Simone, Kiasmos, Drake"
         
         expect(res.status).to eq(200)
-        expect(res.body).to eq(expected_response)  
+        expect(res.body).to include("Drake")  
       end
     end
 
@@ -80,5 +68,25 @@ describe Application do
         expect(res.body).to include('<li>Artist: Pixies</li>')  
     end
   end
+
+  context "GET /artists/:id" do
+    it "returns a list of Artists" do
+      res = get('/artists/1')
+
+      expect(res.status).to eq(200)  
+      expect(res.body).to include('<h1>Pixies</h1>')  
+    end
+  end
+
+  context "GET /artists" do
+    it "returns a list of artists with a link to each artist id page" do
+      res = get('/artists')
+
+      expect(res.status).to eq(200)  
+      expect(res.body).to include('<a href="/artists/1">Pixies</a>')  
+    end 
+  end
+  
+  
 
 end
