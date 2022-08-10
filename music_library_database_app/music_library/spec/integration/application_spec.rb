@@ -28,20 +28,6 @@ describe Application do
     end
   end
 
-  context "POST/albums - Creates new album" do
-    it 'returns 200 ok and creates new album' do
-      res = post('/albums',
-        title: 'Take Care', 
-        release_year: '2017', 
-        artist_id: '5')
-
-        expect(res.status).to eq(200)
-
-      res = get('/albums')
-        expect(res.body).to include('Take Care')  
-    end
-  end
-
     context "POST/artists - Creates new artist" do
       it 'returns 200 ok and creates new artist' do
         res = post('/artists',
@@ -88,6 +74,32 @@ describe Application do
       expect(res.body).to include('<a href="/artists/2">ABBA</a>')  
     end
   end
+
+  context "GET /albums/new" do
+    it "returns HTML form to create a new album" do
+      res = get('/albums/new/')
+
+      expect(res.status).to eq(200)  
+      expect(res.body).to include('<form method="POST" action="/albums">')  
+    
+    end
+  end
+
+
+  context "POST/albums - Creates new album" do
+    it 'returns 200 ok and creates new album' do
+      res = post('/albums',
+        title: 'Take Care', 
+        release_year: '2017', 
+        artist_id: '5')
+
+        expect(res.status).to eq(200)
+
+      res = get('/albums')
+        expect(res.body).to include('Take Care')  
+    end
+  end
+  
   
   
 
