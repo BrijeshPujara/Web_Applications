@@ -75,6 +75,30 @@ describe Application do
     end
   end
 
+  context "GET /artists/new" do
+    it "returns HTML form to create a new album" do
+      res = get('/artists/new/')
+
+      expect(res.status).to eq(200)  
+      expect(res.body).to include('<form method="POST" action="/artists">')  
+    
+    end
+  end
+
+    it "creates a new artist nad adds to artist list" do
+      res = post('/artists', name: 'Burna Boy', genre: 'Afrobeats')
+
+      expect(res.status).to eq(200)  
+      expect(res.body).to eq("")  
+
+      res = get('/artists')
+      expect(res.body).to include('Burna Boy')  
+    end
+  
+
+
+  
+
   context "GET /albums/new" do
     it "returns HTML form to create a new album" do
       res = get('/albums/new/')

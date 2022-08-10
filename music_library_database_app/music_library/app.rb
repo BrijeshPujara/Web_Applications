@@ -27,15 +27,6 @@ class Application < Sinatra::Base
 
   # POST - Create a new album
 
-  post '/artists' do 
-    repo = ArtistRepository.new
-    new_artist = Artist.new
-    new_artist.name = params[:name]
-    new_artist.genre = params[:genre]
-  
-    repo.create(new_artist)
-  end
-
   get '/artists/:id' do 
     repo = ArtistRepository.new
     album_repo = AlbumRepository.new
@@ -44,8 +35,6 @@ class Application < Sinatra::Base
 
     @all_albums = album_repo.all
 
-    
-    
     return erb(:artists_id)
   end
 
@@ -56,6 +45,21 @@ class Application < Sinatra::Base
 
     return erb(:artists)
   end
+
+  get '/artists/new/' do
+    return erb(:new_artist)
+  end
+
+
+  post '/artists' do 
+    repo = ArtistRepository.new
+    new_artist = Artist.new
+    new_artist.name = params[:name]
+    new_artist.genre = params[:genre]
+  
+    repo.create(new_artist)
+  end
+
 
   get '/albums/new/' do 
     return erb(:new_album)
