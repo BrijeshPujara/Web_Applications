@@ -7,35 +7,14 @@ class Application < Sinatra::Base
         register Sinatra::Reloader
       end
 
-  # GET /
-  # Root path (homepage, index page)
+  get '/tasks/new' do 
+    return erb(:new_tasks)
+  end
+
+  post '/tasks' do 
+    @task_name = params[:task_name]
+    return erb(:create_task)
+  end
 
   
-  get '/names' do
-    name = params[:name]
-    name.split(",").join(", ")
-  end
-  
-  post '/sort-names' do
-    name = params[:name]
-    name.split(",").sort.join(", ")
-  end
-  # end
-  #   name = params[:name]
-  #   cohort_name = params[:cohort_name]
-  #   #  http://localhost:9292/posts?name=brijesh&cohort_name=July
-
-  #   # p name
-  #   # p cohort_name
-    
-  #   return "Hello #{name} you're in cohort #{cohort_name}"
-
-  # end
-
-  # post '/submit' do
-  #   name = params[:name]
-  #   message = params[:message]
-
-  #   "Thanks #{name}, you sent this message: #{message}"
-  # end
 end

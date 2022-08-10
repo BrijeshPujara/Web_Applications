@@ -7,35 +7,29 @@ RSpec.describe Application do
 
   let(:app) {Application.new}
 
-  context "GET /" do
-    it 'returns 200 OK' do
-      # Assuming the post with id 1 exists.
-       response = get('/names?name=Julia,Mary,Karim')
+  context "GET /tasks/new" do
+    it 'should return HTML form to create a new task' do
+      res = get('/tasks/new')
 
-      expect(response.status).to eq(200)
-      expect(response.body).to eq("Julia, Mary, Karim")
-    end
+      expect(res.status).to eq(200)  
+      expect(res.body).to include('<form method="POST" action="/tasks">')  
+      expect(res.body).to include('<input type="text" name="task_name"/>')  
 
-    it 'returns 404 Not Found' do
-      response = get('/')
-      expect(response.status).to eq(404)
-    end
   end
+end
 
-  context "POST /sort-names" do
-    it 'returns 200 ok with content' do
-      res = post('/sort-names?name=Joe,Alice,Zoe,Julia,Kieran')
+  context "POST /tasks" do
+    it 'should create a new task and return confirmation page with the different name' do
+      res = post('/tasks', task_name: 'Go the the Gym')
 
-      expect(res.status).to eq(200)
-      expect(res.body).to eq("Alice, Joe, Julia, Kieran, Zoe")
-    end
+      expect(res.status).to eq(200)  
+      expect(res.body).to include('<h1>You saved task: Go the the Gym </h1>')  
 
-    it 'returns 404 Not Found' do
-      response = post('/')
-      expect(response.status).to eq(404)
-    end
   end
-    
+end
+  
+
+  
 
   
     

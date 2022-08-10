@@ -75,6 +75,7 @@ describe Application do
 
       expect(res.status).to eq(200)  
       expect(res.body).to include('<h1>Pixies</h1>')  
+      expect(res.body).to include('<li><a href="/albums/2">Surfer Rosa</a></li>')  
     end
   end
 
@@ -84,7 +85,8 @@ describe Application do
 
       expect(res.status).to eq(200)  
       expect(res.body).to include('<a href="/artists/1">Pixies</a>')  
-    end 
+      expect(res.body).to include('<a href="/artists/2">ABBA</a>')  
+    end
   end
   
   
